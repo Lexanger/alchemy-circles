@@ -106,19 +106,19 @@
 
             <!-- Quick Viewport Action Toggles -->
             <div class="flex items-center gap-2">
-                <button id="btn-animate" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700/70 transition flex items-center gap-1.5" title="Toggle subtle rotation">
+                <button id="btn-animate" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700/70 transition flex items-center gap-1.5 cursor-pointer" title="Toggle subtle rotation">
                     <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/>
                         <path d="M21 3v5h-5"/>
                     </svg>
                     <span>Rotate</span>
                 </button>
-                <button id="btn-copy-seed" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700/70 transition flex items-center gap-1.5" title="Copy current seed">
-                    <svg class="w-3.5 h-3.5 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                <button id="btn-share-link" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700/70 transition flex items-center gap-1.5 cursor-pointer" title="Copy shareable URL with full circle settings">
+                    <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
                     </svg>
-                    <span>Copy Seed</span>
+                    <span>Share Link</span>
                 </button>
             </div>
         </header>
@@ -169,46 +169,112 @@
                 </div>
             </section>
 
+            <!-- Section 1B: Archetype Presets -->
+            <section class="space-y-2.5">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Arcane Archetypes</h2>
+                    <span id="active-archetype-label" class="text-[11px] font-mono text-amber-400/90">Hermetic Seal</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="archetype-grid">
+                    <button type="button" data-archetype="hermetic" class="archetype-btn p-2.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-amber-500/50 text-left transition cursor-pointer">
+                        <div class="text-xs font-semibold text-zinc-100">Hermetic Seal</div>
+                        <div class="text-[10px] text-zinc-400">6-fold Gold &amp; Crimson</div>
+                    </button>
+                    <button type="button" data-archetype="astrolabe" class="archetype-btn p-2.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 text-left transition cursor-pointer">
+                        <div class="text-xs font-semibold text-zinc-100">Astrolabe</div>
+                        <div class="text-[10px] text-zinc-400">12-fold Celestial Orbit</div>
+                    </button>
+                    <button type="button" data-archetype="binding" class="archetype-btn p-2.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 text-left transition cursor-pointer">
+                        <div class="text-xs font-semibold text-zinc-100">Demonic Rite</div>
+                        <div class="text-[10px] text-zinc-400">5-fold Sharp Pentagram</div>
+                    </button>
+                    <button type="button" data-archetype="chronometer" class="archetype-btn p-2.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 text-left transition cursor-pointer">
+                        <div class="text-xs font-semibold text-zinc-100">Chronometer</div>
+                        <div class="text-[10px] text-zinc-400">8-fold Precision Ticks</div>
+                    </button>
+                    <button type="button" data-archetype="aether" class="archetype-btn p-2.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 text-left transition cursor-pointer">
+                        <div class="text-xs font-semibold text-zinc-100">Aether Core</div>
+                        <div class="text-[10px] text-zinc-400">9-fold Astral Conduit</div>
+                    </button>
+                    <button type="button" data-archetype="tablet" class="archetype-btn p-2.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 text-left transition cursor-pointer">
+                        <div class="text-xs font-semibold text-zinc-100">Emerald Tablet</div>
+                        <div class="text-[10px] text-zinc-400">4-fold Elemental Matrix</div>
+                    </button>
+                </div>
+            </section>
+
             <hr class="border-zinc-800/80">
 
-            <!-- Section 2: Geometric Architecture Sliders -->
+            <!-- Section 1C: Layer Visibility Toggle Matrix -->
+            <section class="space-y-2.5">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Layer Visibility Matrix</h2>
+                    <span class="text-[11px] text-zinc-500">Isolate Structure</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-zinc-900/60 border border-zinc-800/80 hover:border-zinc-700 cursor-pointer text-xs text-zinc-200 select-none">
+                        <input type="checkbox" id="layer-containment" checked class="accent-amber-500 w-3.5 h-3.5 rounded cursor-pointer">
+                        <span>Outer Rings</span>
+                    </label>
+                    <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-zinc-900/60 border border-zinc-800/80 hover:border-zinc-700 cursor-pointer text-xs text-zinc-200 select-none">
+                        <input type="checkbox" id="layer-runes" checked class="accent-amber-500 w-3.5 h-3.5 rounded cursor-pointer">
+                        <span>Runic Band</span>
+                    </label>
+                    <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-zinc-900/60 border border-zinc-800/80 hover:border-zinc-700 cursor-pointer text-xs text-zinc-200 select-none">
+                        <input type="checkbox" id="layer-polygons" checked class="accent-amber-500 w-3.5 h-3.5 rounded cursor-pointer">
+                        <span>Star Polygons</span>
+                    </label>
+                    <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-zinc-900/60 border border-zinc-800/80 hover:border-zinc-700 cursor-pointer text-xs text-zinc-200 select-none">
+                        <input type="checkbox" id="layer-orbitals" checked class="accent-amber-500 w-3.5 h-3.5 rounded cursor-pointer">
+                        <span>Orbital Nodes</span>
+                    </label>
+                    <label class="col-span-2 flex items-center gap-2.5 p-2.5 rounded-xl bg-zinc-900/60 border border-zinc-800/80 hover:border-zinc-700 cursor-pointer text-xs text-zinc-200 select-none">
+                        <input type="checkbox" id="layer-core" checked class="accent-amber-500 w-3.5 h-3.5 rounded cursor-pointer">
+                        <span>Central Focal Transmutation Seal</span>
+                    </label>
+                </div>
+            </section>
+
+            <hr class="border-zinc-800/80">
+
+            <!-- Section 2: Geometric Architecture Controls -->
             <section class="space-y-4">
                 <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Geometric Architecture</h2>
 
-                <!-- Complexity / Layer Depth -->
+                <!-- Layer Depth / Complexity -->
                 <div class="space-y-1.5 bg-zinc-900/40 p-3 rounded-xl border border-zinc-800/60">
                     <div class="flex justify-between text-xs">
-                        <span class="text-zinc-300 font-medium">Layer Depth & Complexity</span>
+                        <span class="text-zinc-300 font-medium">Nested Layer Depth</span>
                         <span id="val-complexity" class="font-mono text-amber-400 font-semibold">5</span>
                     </div>
                     <input type="range" id="ctrl-complexity" min="2" max="8" step="1" value="5" class="w-full">
-                    <p class="text-[11px] text-zinc-500">Concentric containment rings & nested polygon shells</p>
+                    <p class="text-[11px] text-zinc-500">Controls concentric ring hierarchy &amp; geometric density</p>
                 </div>
 
                 <!-- Base Polygon Symmetry -->
                 <div class="space-y-1.5 bg-zinc-900/40 p-3 rounded-xl border border-zinc-800/60">
                     <div class="flex justify-between text-xs">
-                        <span class="text-zinc-300 font-medium">Primary Symmetry (Vertices)</span>
+                        <span class="text-zinc-300 font-medium">Primary Polygon Symmetry</span>
                         <span id="val-symmetry" class="font-mono text-amber-400 font-semibold">6 (Hexagram)</span>
                     </div>
                     <input type="range" id="ctrl-symmetry" min="3" max="12" step="1" value="6" class="w-full">
-                    <p class="text-[11px] text-zinc-500">Base vertex count for polygons, stars, and radial webs</p>
+                    <p class="text-[11px] text-zinc-500">Base vertices for polygons, star webs &amp; orbital nodes</p>
                 </div>
 
-                <!-- Rune / Glyph Density -->
+                <!-- Runic Band Density -->
                 <div class="space-y-1.5 bg-zinc-900/40 p-3 rounded-xl border border-zinc-800/60">
                     <div class="flex justify-between text-xs">
-                        <span class="text-zinc-300 font-medium">Runic & Alchemical Glyph Density</span>
+                        <span class="text-zinc-300 font-medium">Runic &amp; Alchemical Glyph Density</span>
                         <span id="val-runes" class="font-mono text-amber-400 font-semibold">65%</span>
                     </div>
                     <input type="range" id="ctrl-runes" min="0" max="100" step="5" value="65" class="w-full">
-                    <p class="text-[11px] text-zinc-500">Perimeter arcane text bands, ticks & planetary sigils</p>
+                    <p class="text-[11px] text-zinc-500">Frequency of planetary, elemental &amp; runic inscriptions</p>
                 </div>
 
-                <!-- Orbital Planetary Nodes -->
+                <!-- Orbital Sub-Circles -->
                 <div class="space-y-1.5 bg-zinc-900/40 p-3 rounded-xl border border-zinc-800/60">
                     <div class="flex justify-between text-xs">
-                        <span class="text-zinc-300 font-medium">Orbital Sub-Circles & Nodes</span>
+                        <span class="text-zinc-300 font-medium">Orbital Sigil Nodes</span>
                         <span id="val-nodes" class="font-mono text-amber-400 font-semibold">2 Rings</span>
                     </div>
                     <input type="range" id="ctrl-nodes" min="0" max="4" step="1" value="2" class="w-full">
@@ -220,7 +286,7 @@
 
             <!-- Section 3: Stroke & Aesthetic Styling -->
             <section class="space-y-4">
-                <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Aesthetics & Illumination</h2>
+                <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Shaders &amp; Illumination</h2>
 
                 <!-- Stroke Weight -->
                 <div class="space-y-1.5 bg-zinc-900/40 p-3 rounded-xl border border-zinc-800/60">
@@ -231,16 +297,25 @@
                     <input type="range" id="ctrl-stroke" min="0.8" max="4.5" step="0.2" value="2.0" class="w-full">
                 </div>
 
-                <!-- Glow Toggle & Color Picker Row -->
+                <!-- Aether Glow Shader Intensity -->
+                <div class="space-y-1.5 bg-zinc-900/40 p-3 rounded-xl border border-zinc-800/60">
+                    <div class="flex justify-between text-xs">
+                        <span class="text-zinc-300 font-medium">Aether Glow Intensity</span>
+                        <span id="val-glow" class="font-mono text-amber-400 font-semibold">4.0 px</span>
+                    </div>
+                    <input type="range" id="ctrl-glow" min="0" max="14" step="0.5" value="4.0" class="w-full">
+                </div>
+
+                <!-- Radial Metallic Gradient Toggle & Custom Color Pickers -->
                 <div class="grid grid-cols-2 gap-3">
-                    <!-- Glow Effect Toggle -->
-                    <button id="toggle-glow" type="button" aria-pressed="true"
+                    <!-- Metallic Gradient Shader Toggle -->
+                    <button id="toggle-gradient" type="button" aria-pressed="true"
                         class="flex items-center justify-between p-3 rounded-xl bg-zinc-900/70 border border-amber-500/40 text-left transition cursor-pointer">
                         <div>
-                            <div class="text-xs font-medium text-zinc-200">Aether Glow</div>
-                            <div id="glow-status" class="text-[11px] text-amber-400">Active</div>
+                            <div class="text-xs font-medium text-zinc-200">Metallic Shader</div>
+                            <div id="gradient-status" class="text-[11px] text-amber-400">Active</div>
                         </div>
-                        <div id="glow-indicator" class="w-8 h-4 rounded-full bg-amber-500 relative transition-colors">
+                        <div id="gradient-indicator" class="w-8 h-4 rounded-full bg-amber-500 relative transition-colors">
                             <span class="block w-3 h-3 rounded-full bg-zinc-950 absolute top-0.5 right-0.5 transition-transform"></span>
                         </div>
                     </button>
@@ -262,19 +337,19 @@
 
                 <!-- Color Presets -->
                 <div class="space-y-2">
-                    <span class="text-xs text-zinc-400 block">Alchemical Ink Presets</span>
+                    <span class="text-xs text-zinc-400 block">Alchemical Ink Swatches</span>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
                         <button type="button" data-preset="fullmetal" class="preset-btn flex items-center gap-2 p-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-amber-500/50 text-xs text-zinc-200 transition cursor-pointer">
                             <span class="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-red-600 to-amber-400 shrink-0"></span>
-                            <span class="truncate">Crimson Gold</span>
+                            <span class="truncate">Gilded Crimson</span>
                         </button>
                         <button type="button" data-preset="chalk" class="preset-btn flex items-center gap-2 p-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-200 transition cursor-pointer">
-                            <span class="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-zinc-400 to-white shrink-0"></span>
-                            <span class="truncate">Ritual Chalk</span>
+                            <span class="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-amber-200 to-stone-100 shrink-0"></span>
+                            <span class="truncate">Aged Parchment</span>
                         </button>
                         <button type="button" data-preset="cyan" class="preset-btn flex items-center gap-2 p-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-200 transition cursor-pointer">
                             <span class="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-blue-600 to-cyan-300 shrink-0"></span>
-                            <span class="truncate">Arcane Cyan</span>
+                            <span class="truncate">Astral Cyan</span>
                         </button>
                         <button type="button" data-preset="void" class="preset-btn flex items-center gap-2 p-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-200 transition cursor-pointer">
                             <span class="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-purple-700 to-fuchsia-400 shrink-0"></span>
@@ -282,14 +357,52 @@
                         </button>
                         <button type="button" data-preset="emerald" class="preset-btn flex items-center gap-2 p-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-200 transition cursor-pointer">
                             <span class="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-emerald-700 to-lime-400 shrink-0"></span>
-                            <span class="truncate">Emerald Tablet</span>
+                            <span class="truncate">Emerald Soul</span>
                         </button>
                         <button type="button" data-preset="solar" class="preset-btn flex items-center gap-2 p-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-200 transition cursor-pointer">
-                            <span class="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-orange-600 to-yellow-300 shrink-0"></span>
-                            <span class="truncate">Solar Brass</span>
+                            <span class="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-amber-800 to-amber-300 shrink-0"></span>
+                            <span class="truncate">Forged Bronze</span>
                         </button>
                     </div>
                 </div>
+            </section>
+
+            <hr class="border-zinc-800/80">
+
+            <!-- Section 4: Client-Side Batch Generator & Zero-Dependency ZIP Export -->
+            <section class="space-y-3 bg-zinc-900/50 p-3.5 rounded-xl border border-zinc-800/80">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-300">Batch Grimoire Export</h2>
+                    <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">OFFLINE ZIP</span>
+                </div>
+                <p class="text-[11px] text-zinc-400">Generate multiple unique variations using current style rules and bundle into a downloadable archive.</p>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label for="batch-count" class="block text-[10px] text-zinc-400 mb-1">Variants Count</label>
+                        <select id="batch-count" class="w-full bg-zinc-950 border border-zinc-700/80 rounded-lg px-2.5 py-1.5 text-xs text-zinc-200 focus:outline-none focus:border-amber-500">
+                            <option value="4">4 Circles</option>
+                            <option value="8" selected>8 Circles</option>
+                            <option value="12">12 Circles</option>
+                            <option value="20">20 Circles</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="batch-format" class="block text-[10px] text-zinc-400 mb-1">Archive Format</label>
+                        <select id="batch-format" class="w-full bg-zinc-950 border border-zinc-700/80 rounded-lg px-2.5 py-1.5 text-xs text-zinc-200 focus:outline-none focus:border-amber-500">
+                            <option value="svg" selected>Scalable SVG</option>
+                            <option value="png">1024×1024 PNG</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="btn-batch-zip" type="button"
+                    class="w-full py-2.5 px-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 active:scale-[0.99] text-amber-300 border border-amber-500/30 font-medium text-xs transition flex items-center justify-center gap-2 cursor-pointer">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 8v13H3V8"/>
+                        <path d="M1 3h22v5H1z"/>
+                        <path d="M10 12h4"/>
+                    </svg>
+                    <span id="batch-btn-text">Generate &amp; Download .ZIP</span>
+                </button>
             </section>
         </div>
 
@@ -323,52 +436,47 @@
     <script>
         /**
          * ============================================================================
-         * 1. DETERMINISTIC PRNG & HASHING ENGINE
+         * 1. DETERMINISTIC SEEDED PRNG (cyrb128 + Mulberry32)
          * ============================================================================
          */
-        function cyrb128(str) {
-            let h1 = 1779033703, h2 = 3144134277,
-                h3 = 1013904242, h4 = 2773480762;
-            for (let i = 0, k; i < str.length; i++) {
-                k = str.charCodeAt(i);
-                h1 = h2 ^ Math.imul(h1 ^ k, 597399067);
-                h2 = h3 ^ Math.imul(h2 ^ k, 2869860233);
-                h3 = h4 ^ Math.imul(h3 ^ k, 951274213);
-                h4 = h1 ^ Math.imul(h4 ^ k, 2716044179);
-            }
-            h1 = Math.imul(h3 ^ (h1 >>> 18), 597399067);
-            h2 = Math.imul(h4 ^ (h2 >>> 22), 2869860233);
-            h3 = Math.imul(h1 ^ (h3 >>> 17), 951274213);
-            h4 = Math.imul(h2 ^ (h4 >>> 19), 2716044179);
-            return [(h1 ^ h2 ^ h3 ^ h4) >>> 0, (h2 ^ h1) >>> 0, (h3 ^ h1) >>> 0, (h4 ^ h1) >>> 0];
-        }
-
-        function mulberry32(a) {
-            return function() {
-                let t = a += 0x6D2B79F5;
-                t = Math.imul(t ^ t >>> 15, t | 1);
-                t ^= t + Math.imul(t ^ t >>> 7, t | 61);
-                return ((t ^ t >>> 14) >>> 0) / 4294967296;
-            };
-        }
-
         class SeededRandom {
             constructor(seedStr) {
-                const seedHash = cyrb128(seedStr || "ALCHEMY");
-                this.rand = mulberry32(seedHash[0]);
+                const str = (seedStr && seedStr.trim().length > 0) ? seedStr.trim() : 'DEFAULT-SEED';
+                const hashes = this.cyrb128(str);
+                this.state = hashes[0];
             }
+
+            cyrb128(str) {
+                let h1 = 1779033703, h2 = 3144134277, h3 = 1013904242, h4 = 2773480762;
+                for (let i = 0, k; i < str.length; i++) {
+                    k = str.charCodeAt(i);
+                    h1 = h2 ^ Math.imul(h1 ^ k, 597399067);
+                    h2 = h3 ^ Math.imul(h2 ^ k, 2869860233);
+                    h3 = h4 ^ Math.imul(h3 ^ k, 951274213);
+                    h4 = h1 ^ Math.imul(h4 ^ k, 2716044179);
+                }
+                h1 = Math.imul(h3 ^ (h1 >>> 18), 597399067);
+                h2 = Math.imul(h4 ^ (h2 >>> 22), 2869860233);
+                h3 = Math.imul(h1 ^ (h3 >>> 17), 951274213);
+                h4 = Math.imul(h2 ^ (h4 >>> 19), 2716044179);
+                return [(h1 ^ h2 ^ h3 ^ h4) >>> 0, (h2 ^ h1) >>> 0, (h3 ^ h1) >>> 0, (h4 ^ h1) >>> 0];
+            }
+
             next() {
-                return this.rand();
+                let t = this.state += 0x6D2B79F5;
+                t = Math.imul(t ^ (t >>> 15), t | 1);
+                t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+                return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
             }
-            range(min, max) {
-                return min + this.next() * (max - min);
-            }
+
             int(min, max) {
-                return Math.floor(this.range(min, max + 1));
+                return Math.floor(this.next() * (max - min + 1)) + min;
             }
-            bool(probability = 0.5) {
-                return this.next() < probability;
+
+            bool(prob = 0.5) {
+                return this.next() < prob;
             }
+
             pick(arr) {
                 return arr[Math.floor(this.next() * arr.length)];
             }
@@ -376,16 +484,55 @@
 
         /**
          * ============================================================================
-         * 2. APPLICATION STATE & PRESETS
+         * 2. APPLICATION STATE, ARCHETYPES & PRESETS
          * ============================================================================
          */
         const COLOR_PRESETS = {
             fullmetal: { primary: '#f59e0b', secondary: '#dc2626', bg: '#09090b' },
-            chalk:     { primary: '#f4f4f5', secondary: '#a1a1aa', bg: '#09090b' },
+            chalk:     { primary: '#fef3c7', secondary: '#d6d3d1', bg: '#09090b' },
             cyan:      { primary: '#22d3ee', secondary: '#3b82f6', bg: '#09090b' },
             void:      { primary: '#e879f9', secondary: '#7e22ce', bg: '#09090b' },
             emerald:   { primary: '#4ade80', secondary: '#059669', bg: '#09090b' },
-            solar:     { primary: '#fde047', secondary: '#ea580c', bg: '#09090b' }
+            solar:     { primary: '#fbbf24', secondary: '#b45309', bg: '#09090b' }
+        };
+
+        const ARCHETYPE_PRESETS = {
+            hermetic: {
+                label: 'Hermetic Seal',
+                complexity: 5, symmetry: 6, runeDensity: 65, nodeRings: 2, strokeWidth: 2.0,
+                glowIntensity: 4.0, metallicGradient: true, primaryColor: '#f59e0b', secondaryColor: '#dc2626',
+                layers: { containment: true, runes: true, polygons: true, orbitals: true, core: true }
+            },
+            astrolabe: {
+                label: 'Planetary Astrolabe',
+                complexity: 7, symmetry: 12, runeDensity: 85, nodeRings: 3, strokeWidth: 1.4,
+                glowIntensity: 5.5, metallicGradient: true, primaryColor: '#22d3ee', secondaryColor: '#3b82f6',
+                layers: { containment: true, runes: true, polygons: true, orbitals: true, core: true }
+            },
+            binding: {
+                label: 'Demonic Binding',
+                complexity: 4, symmetry: 5, runeDensity: 50, nodeRings: 1, strokeWidth: 2.6,
+                glowIntensity: 6.5, metallicGradient: true, primaryColor: '#ef4444', secondaryColor: '#991b1b',
+                layers: { containment: true, runes: true, polygons: true, orbitals: true, core: true }
+            },
+            chronometer: {
+                label: 'Celestial Chronometer',
+                complexity: 6, symmetry: 8, runeDensity: 90, nodeRings: 2, strokeWidth: 1.6,
+                glowIntensity: 3.0, metallicGradient: true, primaryColor: '#fbbf24', secondaryColor: '#b45309',
+                layers: { containment: true, runes: true, polygons: true, orbitals: true, core: true }
+            },
+            aether: {
+                label: 'Aether Core',
+                complexity: 8, symmetry: 9, runeDensity: 40, nodeRings: 4, strokeWidth: 1.6,
+                glowIntensity: 8.0, metallicGradient: true, primaryColor: '#e879f9', secondaryColor: '#7e22ce',
+                layers: { containment: true, runes: false, polygons: true, orbitals: true, core: true }
+            },
+            tablet: {
+                label: 'Emerald Tablet',
+                complexity: 5, symmetry: 4, runeDensity: 75, nodeRings: 2, strokeWidth: 2.2,
+                glowIntensity: 4.5, metallicGradient: true, primaryColor: '#4ade80', secondaryColor: '#059669',
+                layers: { containment: true, runes: true, polygons: true, orbitals: true, core: true }
+            }
         };
 
         const SYMMETRY_NAMES = {
@@ -411,16 +558,86 @@
 
         const state = {
             seed: 'PHILOSOPHER-STONE-01',
+            archetype: 'hermetic',
             complexity: 5,
             symmetry: 6,
             runeDensity: 65,
             nodeRings: 2,
             strokeWidth: 2.0,
-            glow: true,
+            glowIntensity: 4.0,
+            metallicGradient: true,
             primaryColor: '#f59e0b',
             secondaryColor: '#dc2626',
-            isSpinning: false
+            isSpinning: false,
+            layers: {
+                containment: true,
+                runes: true,
+                polygons: true,
+                orbitals: true,
+                core: true
+            }
         };
+
+        /**
+         * ============================================================================
+         * 2B. URL HASH STATE SERIALIZATION & DESERIALIZATION
+         * ============================================================================
+         */
+        function encodeStateToHash() {
+            try {
+                const layerBits = [
+                    state.layers.containment ? '1' : '0',
+                    state.layers.runes ? '1' : '0',
+                    state.layers.polygons ? '1' : '0',
+                    state.layers.orbitals ? '1' : '0',
+                    state.layers.core ? '1' : '0'
+                ].join('');
+                const params = new URLSearchParams();
+                params.set('s', state.seed);
+                params.set('c', state.complexity);
+                params.set('y', state.symmetry);
+                params.set('r', state.runeDensity);
+                params.set('n', state.nodeRings);
+                params.set('w', state.strokeWidth);
+                params.set('g', state.glowIntensity);
+                params.set('m', state.metallicGradient ? '1' : '0');
+                params.set('p', state.primaryColor.replace('#', ''));
+                params.set('x', state.secondaryColor.replace('#', ''));
+                params.set('l', layerBits);
+                history.replaceState(null, '', '#' + params.toString());
+            } catch (e) {
+                // Ignore history security errors in sandboxed iframes
+            }
+        }
+
+        function loadStateFromHash() {
+            try {
+                const hash = window.location.hash.replace(/^#/, '');
+                if (!hash) return false;
+                const params = new URLSearchParams(hash);
+                if (params.has('s')) state.seed = params.get('s');
+                if (params.has('c')) state.complexity = Math.min(8, Math.max(2, parseInt(params.get('c'), 10) || 5));
+                if (params.has('y')) state.symmetry = Math.min(12, Math.max(3, parseInt(params.get('y'), 10) || 6));
+                if (params.has('r')) state.runeDensity = Math.min(100, Math.max(0, parseInt(params.get('r'), 10) || 65));
+                if (params.has('n')) state.nodeRings = Math.min(4, Math.max(0, parseInt(params.get('n'), 10) || 2));
+                if (params.has('w')) state.strokeWidth = Math.min(4.5, Math.max(0.8, parseFloat(params.get('w')) || 2.0));
+                if (params.has('g')) state.glowIntensity = Math.min(14, Math.max(0, parseFloat(params.get('g')) || 0));
+                if (params.has('m')) state.metallicGradient = params.get('m') === '1';
+                if (params.has('p') && /^[0-9a-fA-F]{6}$/.test(params.get('p'))) state.primaryColor = '#' + params.get('p');
+                if (params.has('x') && /^[0-9a-fA-F]{6}$/.test(params.get('x'))) state.secondaryColor = '#' + params.get('x');
+                if (params.has('l') && params.get('l').length === 5) {
+                    const bits = params.get('l');
+                    state.layers.containment = bits[0] === '1';
+                    state.layers.runes = bits[1] === '1';
+                    state.layers.polygons = bits[2] === '1';
+                    state.layers.orbitals = bits[3] === '1';
+                    state.layers.core = bits[4] === '1';
+                }
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
 
         /**
          * ============================================================================
@@ -568,27 +785,51 @@
          * 4. CORE PROCEDURAL ALCHEMY CIRCLE GENERATOR
          * ============================================================================
          */
-        function generateAlchemyCircle() {
-            const svg = document.getElementById('alchemy-svg');
-            svg.innerHTML = ''; // Clear previous render
+        function renderCircleToSvg(targetSvg, cfg) {
+            targetSvg.innerHTML = ''; // Clear previous render
 
-            const rng = new SeededRandom(state.seed);
-            const pColor = state.primaryColor;
-            const sColor = state.secondaryColor;
-            const sw = state.strokeWidth;
-            const sym = state.symmetry;
-            const depth = state.complexity;
-            const runeRatio = state.runeDensity / 100;
+            const rng = new SeededRandom(cfg.seed);
+            const pHex = cfg.primaryColor;
+            const sHex = cfg.secondaryColor;
+            const sw = cfg.strokeWidth;
+            const sym = cfg.symmetry;
+            const depth = cfg.complexity;
+            const runeRatio = cfg.runeDensity / 100;
+            const useGrad = cfg.metallicGradient;
 
-            // 1. SVG Defs: Glow Filter & Circular Text Paths
+            // Active paint references (radial metallic gradient or solid hex)
+            const pPaint = useGrad ? 'url(#grad-primary)' : pHex;
+            const sPaint = useGrad ? 'url(#grad-secondary)' : sHex;
+
+            // 1. SVG Defs: Multi-Stop Radial Metallic Gradients & Adjustable Glow Shader
             const defs = createSvgEl('defs');
-            if (state.glow) {
+
+            if (useGrad) {
+                const gradPrimary = createSvgEl('radialGradient', {
+                    id: 'grad-primary', cx: '50%', cy: '50%', r: '50%', fx: '50%', fy: '50%'
+                });
+                gradPrimary.appendChild(createSvgEl('stop', { offset: '0%', 'stop-color': '#ffffff', 'stop-opacity': '0.95' }));
+                gradPrimary.appendChild(createSvgEl('stop', { offset: '38%', 'stop-color': pHex, 'stop-opacity': '1' }));
+                gradPrimary.appendChild(createSvgEl('stop', { offset: '82%', 'stop-color': pHex, 'stop-opacity': '0.92' }));
+                gradPrimary.appendChild(createSvgEl('stop', { offset: '100%', 'stop-color': sHex, 'stop-opacity': '1' }));
+                defs.appendChild(gradPrimary);
+
+                const gradSecondary = createSvgEl('radialGradient', {
+                    id: 'grad-secondary', cx: '50%', cy: '50%', r: '50%'
+                });
+                gradSecondary.appendChild(createSvgEl('stop', { offset: '0%', 'stop-color': pHex, 'stop-opacity': '0.95' }));
+                gradSecondary.appendChild(createSvgEl('stop', { offset: '60%', 'stop-color': sHex, 'stop-opacity': '1' }));
+                gradSecondary.appendChild(createSvgEl('stop', { offset: '100%', 'stop-color': pHex, 'stop-opacity': '0.85' }));
+                defs.appendChild(gradSecondary);
+            }
+
+            if (cfg.glowIntensity > 0) {
                 const filter = createSvgEl('filter', {
                     id: 'arcane-glow',
                     x: '-25%', y: '-25%', width: '150%', height: '150%'
                 });
                 filter.appendChild(createSvgEl('feGaussianBlur', {
-                    stdDeviation: '3.5',
+                    stdDeviation: cfg.glowIntensity.toFixed(1),
                     result: 'coloredBlur'
                 }));
                 const merge = createSvgEl('feMerge');
@@ -597,57 +838,63 @@
                 filter.appendChild(merge);
                 defs.appendChild(filter);
             }
-            svg.appendChild(defs);
+            targetSvg.appendChild(defs);
 
             // Root container group (supports glow filter & rotation animation)
             const rootGroup = createSvgEl('g', {
                 id: 'circle-root',
-                filter: state.glow ? 'url(#arcane-glow)' : 'none',
-                class: state.isSpinning ? 'animate-spin-slow' : ''
+                filter: cfg.glowIntensity > 0 ? 'url(#arcane-glow)' : 'none',
+                class: cfg.isSpinning ? 'animate-spin-slow' : ''
             });
-            svg.appendChild(rootGroup);
+            targetSvg.appendChild(rootGroup);
 
             // ------------------------------------------------------------------------
-            // LAYER A: Outer Containment Double-Rings, Degree Ticks & Runic Perimeter Band
+            // LAYER A: Outer Containment Double-Rings & Degree Ticks
             // ------------------------------------------------------------------------
             const outerR = 468;
-            const bandThickness = runeRatio > 0 ? 34 : 16;
+            const bandThickness = (cfg.layers.runes && runeRatio > 0) ? 34 : 16;
             const innerContainmentR = outerR - bandThickness;
 
-            // Outermost heavy boundary ring + hairline accent ring
-            rootGroup.appendChild(createSvgEl('circle', {
-                cx: CX, cy: CY, r: outerR,
-                fill: 'none', stroke: pColor, 'stroke-width': sw * 1.45
-            }));
-            rootGroup.appendChild(createSvgEl('circle', {
-                cx: CX, cy: CY, r: outerR - 6,
-                fill: 'none', stroke: sColor, 'stroke-width': sw * 0.65, 'stroke-opacity': '0.85'
-            }));
-            rootGroup.appendChild(createSvgEl('circle', {
-                cx: CX, cy: CY, r: innerContainmentR,
-                fill: 'none', stroke: pColor, 'stroke-width': sw * 1.2
-            }));
-
-            // Precision Degree Tick Marks around outer perimeter
-            const tickCount = sym * rng.pick([6, 8, 12]);
-            for (let i = 0; i < tickCount; i++) {
-                const angle = (i * 360) / tickCount;
-                const isMajor = i % (tickCount / sym) === 0;
-                const rStart = outerR - 6;
-                const rEnd = isMajor ? innerContainmentR : outerR - 13;
-                const p1 = polarToCartesian(CX, CY, rStart, angle);
-                const p2 = polarToCartesian(CX, CY, rEnd, angle);
-                rootGroup.appendChild(createSvgEl('line', {
-                    x1: p1.x.toFixed(2), y1: p1.y.toFixed(2),
-                    x2: p2.x.toFixed(2), y2: p2.y.toFixed(2),
-                    stroke: isMajor ? pColor : sColor,
-                    'stroke-width': isMajor ? sw * 1.1 : sw * 0.55,
-                    'stroke-opacity': isMajor ? '0.95' : '0.6'
+            if (cfg.layers.containment) {
+                rootGroup.appendChild(createSvgEl('circle', {
+                    cx: CX, cy: CY, r: outerR,
+                    fill: 'none', stroke: pPaint, 'stroke-width': sw * 1.45
                 }));
+                rootGroup.appendChild(createSvgEl('circle', {
+                    cx: CX, cy: CY, r: outerR - 6,
+                    fill: 'none', stroke: sPaint, 'stroke-width': sw * 0.65, 'stroke-opacity': '0.85'
+                }));
+                rootGroup.appendChild(createSvgEl('circle', {
+                    cx: CX, cy: CY, r: innerContainmentR,
+                    fill: 'none', stroke: pPaint, 'stroke-width': sw * 1.2
+                }));
+
+                // Precision Degree Tick Marks around outer perimeter
+                const tickCount = sym * rng.pick([6, 8, 12]);
+                for (let i = 0; i < tickCount; i++) {
+                    const angle = (i * 360) / tickCount;
+                    const isMajor = i % (tickCount / sym) === 0;
+                    const rStart = outerR - 6;
+                    const rEnd = isMajor ? innerContainmentR : outerR - 13;
+                    const p1 = polarToCartesian(CX, CY, rStart, angle);
+                    const p2 = polarToCartesian(CX, CY, rEnd, angle);
+                    rootGroup.appendChild(createSvgEl('line', {
+                        x1: p1.x.toFixed(2), y1: p1.y.toFixed(2),
+                        x2: p2.x.toFixed(2), y2: p2.y.toFixed(2),
+                        stroke: isMajor ? pHex : sHex,
+                        'stroke-width': isMajor ? sw * 1.1 : sw * 0.55,
+                        'stroke-opacity': isMajor ? '0.95' : '0.6'
+                    }));
+                }
+            } else {
+                // Consume RNG identically so disabling containment preserves inner seed determinism
+                rng.pick([6, 8, 12]);
             }
 
-            // Runic / Alchemical Glyph Band inside outer containment ring
-            if (runeRatio > 0) {
+            // ------------------------------------------------------------------------
+            // LAYER A2: Runic / Alchemical Glyph Band
+            // ------------------------------------------------------------------------
+            if (cfg.layers.runes && runeRatio > 0) {
                 const glyphCount = Math.max(sym * 2, Math.floor((sym * 6) * runeRatio));
                 const glyphRadius = (outerR - 6 + innerContainmentR) / 2;
                 const glyphSize = Math.min(18, (2 * Math.PI * glyphRadius / glyphCount) * 0.62);
@@ -659,7 +906,7 @@
                     const txt = createSvgEl('text', {
                         x: pos.x.toFixed(2),
                         y: pos.y.toFixed(2),
-                        fill: i % 2 === 0 ? pColor : sColor,
+                        fill: i % 2 === 0 ? pHex : sHex,
                         'font-size': glyphSize.toFixed(1),
                         'font-family': 'serif',
                         'text-anchor': 'middle',
@@ -672,32 +919,30 @@
             }
 
             // ------------------------------------------------------------------------
-            // LAYER B: Radial Axis Lines & Cardinal Geometric Spokes
+            // LAYER B & C: Radial Spokes, Nested Concentric Rings & Star Webs
             // ------------------------------------------------------------------------
             const radialSpokes = sym * (rng.bool(0.6) ? 2 : 1);
             const innerCoreBoundary = 78;
-            for (let i = 0; i < radialSpokes; i++) {
-                const angle = (i * 360) / radialSpokes;
-                const isPrimaryAxis = i % (radialSpokes / sym) === 0;
-                const p1 = polarToCartesian(CX, CY, innerCoreBoundary, angle);
-                const p2 = polarToCartesian(CX, CY, innerContainmentR, angle);
-                rootGroup.appendChild(createSvgEl('line', {
-                    x1: p1.x.toFixed(2), y1: p1.y.toFixed(2),
-                    x2: p2.x.toFixed(2), y2: p2.y.toFixed(2),
-                    stroke: isPrimaryAxis ? pColor : sColor,
-                    'stroke-width': isPrimaryAxis ? sw * 0.75 : sw * 0.4,
-                    'stroke-dasharray': isPrimaryAxis ? 'none' : '4 6',
-                    'stroke-opacity': isPrimaryAxis ? '0.65' : '0.4'
-                }));
+            if (cfg.layers.polygons) {
+                for (let i = 0; i < radialSpokes; i++) {
+                    const angle = (i * 360) / radialSpokes;
+                    const isPrimaryAxis = i % (radialSpokes / sym) === 0;
+                    const p1 = polarToCartesian(CX, CY, innerCoreBoundary, angle);
+                    const p2 = polarToCartesian(CX, CY, innerContainmentR, angle);
+                    rootGroup.appendChild(createSvgEl('line', {
+                        x1: p1.x.toFixed(2), y1: p1.y.toFixed(2),
+                        x2: p2.x.toFixed(2), y2: p2.y.toFixed(2),
+                        stroke: isPrimaryAxis ? pHex : sHex,
+                        'stroke-width': isPrimaryAxis ? sw * 0.75 : sw * 0.4,
+                        'stroke-dasharray': isPrimaryAxis ? 'none' : '4 6',
+                        'stroke-opacity': isPrimaryAxis ? '0.65' : '0.4'
+                    }));
+                }
             }
 
-            // ------------------------------------------------------------------------
-            // LAYER C: Nested Concentric Rings, Intersecting Polygons & Star Webs
-            // ------------------------------------------------------------------------
             const maxPolyR = innerContainmentR - 14;
             const minPolyR = 95;
             const stepR = (maxPolyR - minPolyR) / depth;
-
             const layerRadii = [];
 
             for (let d = 0; d < depth; d++) {
@@ -705,98 +950,94 @@
                 const rInner = rOuter - stepR * 0.85;
                 layerRadii.push(rOuter);
 
-                const layerColor = d % 2 === 0 ? pColor : sColor;
-                const altColor = d % 2 === 0 ? sColor : pColor;
+                const layerColor = d % 2 === 0 ? pPaint : sPaint;
+                const altColor = d % 2 === 0 ? sPaint : pPaint;
                 const rotOffset = (d % 2 === 1) ? (180 / sym) : 0;
 
-                // Structural Concentric Ring
-                rootGroup.appendChild(createSvgEl('circle', {
-                    cx: CX, cy: CY, r: rOuter.toFixed(2),
-                    fill: 'none',
-                    stroke: layerColor,
-                    'stroke-width': d === 0 ? sw * 1.15 : sw * 0.85,
-                    'stroke-dasharray': (d % 3 === 2 && rng.bool(0.5)) ? '8 5' : 'none'
-                }));
-
-                // Secondary subtle offset ring
-                if (rng.bool(0.55)) {
-                    rootGroup.appendChild(createSvgEl('circle', {
-                        cx: CX, cy: CY, r: (rOuter - 5).toFixed(2),
-                        fill: 'none',
-                        stroke: altColor,
-                        'stroke-width': sw * 0.45,
-                        'stroke-opacity': '0.75'
-                    }));
-                }
-
-                // Choose Polygon / Star Construct for this Layer
+                const isDashed = (d % 3 === 2 && rng.bool(0.5));
+                const hasSubRing = rng.bool(0.55);
                 const patternType = rng.int(0, 3);
+                const stepK = sym >= 5 ? rng.int(2, Math.floor((sym - 1) / 2)) : 2;
 
-                if (patternType === 0) {
-                    // Dual Intersecting Regular Polygons (e.g., Hexagram / Octagram compound)
-                    const pts1 = getPolygonPoints(CX, CY, rOuter, sym, rotOffset);
-                    const pts2 = getPolygonPoints(CX, CY, rOuter, sym, rotOffset + (180 / sym));
-                    rootGroup.appendChild(createSvgEl('polygon', {
-                        points: pointsToAttr(pts1),
-                        fill: 'none', stroke: layerColor, 'stroke-width': sw
+                if (cfg.layers.polygons) {
+                    rootGroup.appendChild(createSvgEl('circle', {
+                        cx: CX, cy: CY, r: rOuter.toFixed(2),
+                        fill: 'none',
+                        stroke: layerColor,
+                        'stroke-width': d === 0 ? sw * 1.15 : sw * 0.85,
+                        'stroke-dasharray': isDashed ? '8 5' : 'none'
                     }));
-                    rootGroup.appendChild(createSvgEl('polygon', {
-                        points: pointsToAttr(pts2),
-                        fill: 'none', stroke: altColor, 'stroke-width': sw * 0.85
-                    }));
-                } else if (patternType === 1) {
-                    // Continuous Star Polygon {n/k}
-                    const stepK = sym >= 5 ? rng.int(2, Math.floor((sym - 1) / 2)) : 2;
-                    const pts = getPolygonPoints(CX, CY, rOuter, sym, rotOffset);
-                    for (let i = 0; i < sym; i++) {
-                        const target = (i + stepK) % sym;
-                        rootGroup.appendChild(createSvgEl('line', {
-                            x1: pts[i].x.toFixed(2), y1: pts[i].y.toFixed(2),
-                            x2: pts[target].x.toFixed(2), y2: pts[target].y.toFixed(2),
-                            stroke: layerColor, 'stroke-width': sw
+
+                    if (hasSubRing) {
+                        rootGroup.appendChild(createSvgEl('circle', {
+                            cx: CX, cy: CY, r: (rOuter - 5).toFixed(2),
+                            fill: 'none',
+                            stroke: altColor,
+                            'stroke-width': sw * 0.45,
+                            'stroke-opacity': '0.75'
                         }));
                     }
-                } else if (patternType === 2) {
-                    // Inscribed Polygon + Internal Chord Web
-                    const pts = getPolygonPoints(CX, CY, rOuter, sym, rotOffset);
-                    rootGroup.appendChild(createSvgEl('polygon', {
-                        points: pointsToAttr(pts),
-                        fill: 'none', stroke: layerColor, 'stroke-width': sw * 1.05
-                    }));
-                    // Connect vertices to inner ring midpoint vertices
-                    const innerPts = getPolygonPoints(CX, CY, Math.max(minPolyR, rInner), sym, rotOffset + (180 / sym));
-                    for (let i = 0; i < sym; i++) {
-                        const nextI = (i + 1) % sym;
-                        rootGroup.appendChild(createSvgEl('line', {
-                            x1: pts[i].x.toFixed(2), y1: pts[i].y.toFixed(2),
-                            x2: innerPts[i].x.toFixed(2), y2: innerPts[i].y.toFixed(2),
-                            stroke: altColor, 'stroke-width': sw * 0.65
+
+                    if (patternType === 0) {
+                        const pts1 = getPolygonPoints(CX, CY, rOuter, sym, rotOffset);
+                        const pts2 = getPolygonPoints(CX, CY, rOuter, sym, rotOffset + (180 / sym));
+                        rootGroup.appendChild(createSvgEl('polygon', {
+                            points: pointsToAttr(pts1),
+                            fill: 'none', stroke: layerColor, 'stroke-width': sw
                         }));
-                        rootGroup.appendChild(createSvgEl('line', {
-                            x1: pts[nextI].x.toFixed(2), y1: pts[nextI].y.toFixed(2),
-                            x2: innerPts[i].x.toFixed(2), y2: innerPts[i].y.toFixed(2),
-                            stroke: altColor, 'stroke-width': sw * 0.65
+                        rootGroup.appendChild(createSvgEl('polygon', {
+                            points: pointsToAttr(pts2),
+                            fill: 'none', stroke: altColor, 'stroke-width': sw * 0.85
                         }));
-                    }
-                } else {
-                    // Geometric Petal / Arc Rosette around ring
-                    const pts = getPolygonPoints(CX, CY, rOuter, sym, rotOffset);
-                    rootGroup.appendChild(createSvgEl('polygon', {
-                        points: pointsToAttr(pts),
-                        fill: 'none', stroke: layerColor, 'stroke-width': sw * 0.9
-                    }));
-                    for (let i = 0; i < sym; i++) {
-                        const next = pts[(i + 1) % sym];
-                        const arcR = rOuter * 0.72;
-                        const d = `M ${pts[i].x.toFixed(2)} ${pts[i].y.toFixed(2)} A ${arcR.toFixed(2)} ${arcR.toFixed(2)} 0 0 1 ${next.x.toFixed(2)} ${next.y.toFixed(2)}`;
-                        rootGroup.appendChild(createSvgEl('path', {
-                            d, fill: 'none', stroke: altColor, 'stroke-width': sw * 0.75
+                    } else if (patternType === 1) {
+                        const pts = getPolygonPoints(CX, CY, rOuter, sym, rotOffset);
+                        for (let i = 0; i < sym; i++) {
+                            const target = (i + stepK) % sym;
+                            rootGroup.appendChild(createSvgEl('line', {
+                                x1: pts[i].x.toFixed(2), y1: pts[i].y.toFixed(2),
+                                x2: pts[target].x.toFixed(2), y2: pts[target].y.toFixed(2),
+                                stroke: layerColor, 'stroke-width': sw
+                            }));
+                        }
+                    } else if (patternType === 2) {
+                        const pts = getPolygonPoints(CX, CY, rOuter, sym, rotOffset);
+                        rootGroup.appendChild(createSvgEl('polygon', {
+                            points: pointsToAttr(pts),
+                            fill: 'none', stroke: layerColor, 'stroke-width': sw * 1.05
                         }));
+                        const innerPts = getPolygonPoints(CX, CY, Math.max(minPolyR, rInner), sym, rotOffset + (180 / sym));
+                        for (let i = 0; i < sym; i++) {
+                            const nextI = (i + 1) % sym;
+                            rootGroup.appendChild(createSvgEl('line', {
+                                x1: pts[i].x.toFixed(2), y1: pts[i].y.toFixed(2),
+                                x2: innerPts[i].x.toFixed(2), y2: innerPts[i].y.toFixed(2),
+                                stroke: altColor, 'stroke-width': sw * 0.65
+                            }));
+                            rootGroup.appendChild(createSvgEl('line', {
+                                x1: pts[nextI].x.toFixed(2), y1: pts[nextI].y.toFixed(2),
+                                x2: innerPts[i].x.toFixed(2), y2: innerPts[i].y.toFixed(2),
+                                stroke: altColor, 'stroke-width': sw * 0.65
+                            }));
+                        }
+                    } else {
+                        const pts = getPolygonPoints(CX, CY, rOuter, sym, rotOffset);
+                        rootGroup.appendChild(createSvgEl('polygon', {
+                            points: pointsToAttr(pts),
+                            fill: 'none', stroke: layerColor, 'stroke-width': sw * 0.9
+                        }));
+                        for (let i = 0; i < sym; i++) {
+                            const next = pts[(i + 1) % sym];
+                            const arcR = rOuter * 0.72;
+                            const dPath = `M ${pts[i].x.toFixed(2)} ${pts[i].y.toFixed(2)} A ${arcR.toFixed(2)} ${arcR.toFixed(2)} 0 0 1 ${next.x.toFixed(2)} ${next.y.toFixed(2)}`;
+                            rootGroup.appendChild(createSvgEl('path', {
+                                d: dPath, fill: 'none', stroke: altColor, 'stroke-width': sw * 0.75
+                            }));
+                        }
                     }
                 }
 
-                // Optional Inner Mini-Rune Band between deeper layers
-                if (runeRatio > 0.45 && d === 1 && stepR > 42) {
+                // Inner Mini-Rune Band between deeper layers
+                if (cfg.layers.runes && runeRatio > 0.45 && d === 1 && stepR > 42) {
                     const midR = rOuter - stepR * 0.5;
                     const innerGlyphCount = sym * 2;
                     for (let g = 0; g < innerGlyphCount; g++) {
@@ -805,7 +1046,7 @@
                         const txt = createSvgEl('text', {
                             x: gPos.x.toFixed(2),
                             y: gPos.y.toFixed(2),
-                            fill: pColor,
+                            fill: pHex,
                             'font-size': '13',
                             'font-family': 'serif',
                             'text-anchor': 'middle',
@@ -821,71 +1062,267 @@
             // ------------------------------------------------------------------------
             // LAYER D: Orbital Sub-Circles / Planetary Nodes at Polygon Vertices
             // ------------------------------------------------------------------------
-            const activeNodeRings = Math.min(state.nodeRings, layerRadii.length);
-            for (let n = 0; n < activeNodeRings; n++) {
-                // Space node rings across available structural radii
-                const radiusIdx = Math.floor((n * layerRadii.length) / activeNodeRings);
-                const orbitR = layerRadii[radiusIdx];
-                const nodeCount = sym;
-                const nodeRadius = Math.max(14, Math.min(34, (Math.PI * orbitR / nodeCount) * 0.42));
-                const rot = (radiusIdx % 2 === 1) ? (180 / sym) : 0;
+            if (cfg.layers.orbitals) {
+                const activeNodeRings = Math.min(cfg.nodeRings, layerRadii.length);
+                for (let n = 0; n < activeNodeRings; n++) {
+                    const radiusIdx = Math.floor((n * layerRadii.length) / activeNodeRings);
+                    const orbitR = layerRadii[radiusIdx];
+                    const nodeCount = sym;
+                    const nodeRadius = Math.max(14, Math.min(34, (Math.PI * orbitR / nodeCount) * 0.42));
+                    const rot = (radiusIdx % 2 === 1) ? (180 / sym) : 0;
 
-                const nodeCenters = getPolygonPoints(CX, CY, orbitR, nodeCount, rot);
-                nodeCenters.forEach((pt, idx) => {
-                    // Dark mask circle behind node so underlying lines don't clutter sigil
-                    rootGroup.appendChild(createSvgEl('circle', {
-                        cx: pt.x.toFixed(2), cy: pt.y.toFixed(2), r: nodeRadius.toFixed(2),
-                        fill: '#09090b',
-                        stroke: idx % 2 === 0 ? pColor : sColor,
-                        'stroke-width': sw * 1.05
-                    }));
-                    // Inner concentric ring inside node
-                    rootGroup.appendChild(createSvgEl('circle', {
-                        cx: pt.x.toFixed(2), cy: pt.y.toFixed(2), r: (nodeRadius * 0.82).toFixed(2),
-                        fill: 'none',
-                        stroke: idx % 2 === 0 ? sColor : pColor,
-                        'stroke-width': sw * 0.55
-                    }));
-                    // Inscribed Alchemical Sigil inside node
-                    drawMiniSigil(rootGroup, pt.x, pt.y, nodeRadius, rng, pColor, sw);
-                });
+                    const nodeCenters = getPolygonPoints(CX, CY, orbitR, nodeCount, rot);
+                    nodeCenters.forEach((pt, idx) => {
+                        rootGroup.appendChild(createSvgEl('circle', {
+                            cx: pt.x.toFixed(2), cy: pt.y.toFixed(2), r: nodeRadius.toFixed(2),
+                            fill: '#09090b',
+                            stroke: idx % 2 === 0 ? pPaint : sPaint,
+                            'stroke-width': sw * 1.05
+                        }));
+                        rootGroup.appendChild(createSvgEl('circle', {
+                            cx: pt.x.toFixed(2), cy: pt.y.toFixed(2), r: (nodeRadius * 0.82).toFixed(2),
+                            fill: 'none',
+                            stroke: idx % 2 === 0 ? sHex : pHex,
+                            'stroke-width': sw * 0.55
+                        }));
+                        drawMiniSigil(rootGroup, pt.x, pt.y, nodeRadius, rng, pHex, sw);
+                    });
+                }
             }
 
             // ------------------------------------------------------------------------
             // LAYER E: Central Focal Transmutation Core
             // ------------------------------------------------------------------------
-            const coreR = 76;
-            rootGroup.appendChild(createSvgEl('circle', {
-                cx: CX, cy: CY, r: coreR,
-                fill: '#09090b', stroke: pColor, 'stroke-width': sw * 1.35
-            }));
-            rootGroup.appendChild(createSvgEl('circle', {
-                cx: CX, cy: CY, r: coreR - 8,
-                fill: 'none', stroke: sColor, 'stroke-width': sw * 0.7
-            }));
+            if (cfg.layers.core) {
+                const coreR = 76;
+                rootGroup.appendChild(createSvgEl('circle', {
+                    cx: CX, cy: CY, r: coreR,
+                    fill: '#09090b', stroke: pPaint, 'stroke-width': sw * 1.35
+                }));
+                rootGroup.appendChild(createSvgEl('circle', {
+                    cx: CX, cy: CY, r: coreR - 8,
+                    fill: 'none', stroke: sPaint, 'stroke-width': sw * 0.7
+                }));
 
-            // Central Sacred Geometry Construct
-            const coreStarPts = getPolygonPoints(CX, CY, coreR - 10, sym, 0);
-            rootGroup.appendChild(createSvgEl('polygon', {
-                points: pointsToAttr(coreStarPts),
-                fill: 'none', stroke: pColor, 'stroke-width': sw * 0.95
-            }));
+                const coreStarPts = getPolygonPoints(CX, CY, coreR - 10, sym, 0);
+                rootGroup.appendChild(createSvgEl('polygon', {
+                    points: pointsToAttr(coreStarPts),
+                    fill: 'none', stroke: pPaint, 'stroke-width': sw * 0.95
+                }));
 
-            // Inner focal ring + bespoke central sigil
-            rootGroup.appendChild(createSvgEl('circle', {
-                cx: CX, cy: CY, r: 34,
-                fill: '#09090b', stroke: sColor, 'stroke-width': sw
-            }));
-            drawMiniSigil(rootGroup, CX, CY, 34, rng, pColor, sw * 1.25);
+                rootGroup.appendChild(createSvgEl('circle', {
+                    cx: CX, cy: CY, r: 34,
+                    fill: '#09090b', stroke: sPaint, 'stroke-width': sw
+                }));
+                drawMiniSigil(rootGroup, CX, CY, 34, rng, pHex, sw * 1.25);
+            }
 
-            // Update Node Counter in Footer
-            const totalElements = rootGroup.querySelectorAll('*').length;
+            return rootGroup.querySelectorAll('*').length;
+        }
+
+        function generateAlchemyCircle() {
+            const svg = document.getElementById('alchemy-svg');
+            const totalElements = renderCircleToSvg(svg, state);
             document.getElementById('stat-elements').innerHTML = `NODES: <strong class="text-zinc-300 font-mono">${totalElements}</strong>`;
+            encodeStateToHash();
         }
 
         /**
          * ============================================================================
-         * 5. TOAST NOTIFICATIONS & EXPORT PIPELINE (SVG & HIGH-RES PNG)
+         * 5. ZERO-DEPENDENCY PURE-JS ZIP ARCHIVER (CRC32 + STORE) & EXPORT PIPELINE
+         * ============================================================================
+         */
+        const CRC32_TABLE = (() => {
+            const table = new Uint32Array(256);
+            for (let i = 0; i < 256; i++) {
+                let c = i;
+                for (let k = 0; k < 8; k++) {
+                    c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+                }
+                table[i] = c;
+            }
+            return table;
+        })();
+
+        function computeCrc32(uint8Arr) {
+            let crc = 0xFFFFFFFF;
+            for (let i = 0; i < uint8Arr.length; i++) {
+                crc = CRC32_TABLE[(crc ^ uint8Arr[i]) & 0xFF] ^ (crc >>> 8);
+            }
+            return (crc ^ 0xFFFFFFFF) >>> 0;
+        }
+
+        /**
+         * Builds a valid .ZIP Blob completely in memory with zero external libraries.
+         * @param {Array<{name: string, data: Uint8Array}>} files
+         */
+        function buildZipBlob(files) {
+            const encoder = new TextEncoder();
+            const localChunks = [];
+            const centralChunks = [];
+            let offset = 0;
+
+            for (const file of files) {
+                const nameBytes = encoder.encode(file.name);
+                const crc = computeCrc32(file.data);
+                const size = file.data.length;
+
+                // Local File Header (30 bytes + filename)
+                const localHeader = new ArrayBuffer(30 + nameBytes.length);
+                const lv = new DataView(localHeader);
+                lv.setUint32(0, 0x04034b50, true); // Local file header signature
+                lv.setUint16(4, 20, true);         // Version needed (2.0)
+                lv.setUint16(6, 0, true);          // Flags
+                lv.setUint16(8, 0, true);          // Compression method: 0 (STORE)
+                lv.setUint16(10, 0, true);         // Mod time
+                lv.setUint16(12, 0x0021, true);    // Mod date
+                lv.setUint32(14, crc, true);       // CRC-32
+                lv.setUint32(18, size, true);      // Compressed size
+                lv.setUint32(22, size, true);      // Uncompressed size
+                lv.setUint16(26, nameBytes.length, true);
+                lv.setUint16(28, 0, true);         // Extra field length
+                new Uint8Array(localHeader, 30).set(nameBytes);
+
+                localChunks.push(new Uint8Array(localHeader), file.data);
+
+                // Central Directory Header (46 bytes + filename)
+                const centralHeader = new ArrayBuffer(46 + nameBytes.length);
+                const cv = new DataView(centralHeader);
+                cv.setUint32(0, 0x02014b50, true); // Central directory signature
+                cv.setUint16(4, 20, true);         // Version made by
+                cv.setUint16(6, 20, true);         // Version needed
+                cv.setUint16(8, 0, true);          // Flags
+                cv.setUint16(10, 0, true);         // Compression method: STORE
+                cv.setUint16(12, 0, true);         // Mod time
+                cv.setUint16(14, 0x0021, true);    // Mod date
+                cv.setUint32(16, crc, true);       // CRC-32
+                cv.setUint32(20, size, true);      // Compressed size
+                cv.setUint32(24, size, true);      // Uncompressed size
+                cv.setUint16(28, nameBytes.length, true);
+                cv.setUint16(30, 0, true);         // Extra field length
+                cv.setUint16(32, 0, true);         // File comment length
+                cv.setUint16(34, 0, true);         // Disk number start
+                cv.setUint16(36, 0, true);         // Internal file attrs
+                cv.setUint32(38, 0, true);         // External file attrs
+                cv.setUint32(42, offset, true);    // Relative offset of local header
+                new Uint8Array(centralHeader, 46).set(nameBytes);
+
+                centralChunks.push(new Uint8Array(centralHeader));
+                offset += localHeader.byteLength + size;
+            }
+
+            const centralDirSize = centralChunks.reduce((acc, c) => acc + c.length, 0);
+
+            // End of Central Directory Record (22 bytes)
+            const eocd = new ArrayBuffer(22);
+            const ev = new DataView(eocd);
+            ev.setUint32(0, 0x06054b50, true);
+            ev.setUint16(4, 0, true);
+            ev.setUint16(6, 0, true);
+            ev.setUint16(8, files.length, true);
+            ev.setUint16(10, files.length, true);
+            ev.setUint32(12, centralDirSize, true);
+            ev.setUint32(16, offset, true);
+            ev.setUint16(20, 0, true);
+
+            return new Blob([...localChunks, ...centralChunks, new Uint8Array(eocd)], { type: 'application/zip' });
+        }
+
+        function serializeSvgElement(svgEl) {
+            const clone = svgEl.cloneNode(true);
+            const rootG = clone.querySelector('#circle-root');
+            if (rootG) rootG.removeAttribute('class');
+            const serializer = new XMLSerializer();
+            let source = serializer.serializeToString(clone);
+            if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+                source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+            }
+            return source;
+        }
+
+        function rasterizeSvgToPngBytes(svgString, size) {
+            return new Promise((resolve) => {
+                const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+                const url = URL.createObjectURL(svgBlob);
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = size;
+                    canvas.height = size;
+                    const ctx = canvas.getContext('2d');
+                    ctx.clearRect(0, 0, size, size);
+                    ctx.drawImage(img, 0, 0, size, size);
+                    URL.revokeObjectURL(url);
+                    canvas.toBlob(async (blob) => {
+                        const buf = await blob.arrayBuffer();
+                        resolve(new Uint8Array(buf));
+                    }, 'image/png');
+                };
+                img.src = url;
+            });
+        }
+
+        async function exportBatchZip() {
+            const count = parseInt(document.getElementById('batch-count').value, 10) || 8;
+            const format = document.getElementById('batch-format').value;
+            const btn = document.getElementById('btn-batch-zip');
+            const btnText = document.getElementById('batch-btn-text');
+
+            btn.disabled = true;
+            btnText.textContent = `Forging ${count} Circles...`;
+
+            try {
+                const encoder = new TextEncoder();
+                const zipEntries = [];
+                const offscreenSvg = createSvgEl('svg', {
+                    viewBox: '0 0 1000 1000',
+                    width: '1024',
+                    height: '1024',
+                    xmlns: SVG_NS
+                });
+
+                for (let i = 0; i < count; i++) {
+                    const variantSeed = i === 0 ? state.seed : generateRandomSeedString();
+                    const variantCfg = { ...state, seed: variantSeed, isSpinning: false };
+                    renderCircleToSvg(offscreenSvg, variantCfg);
+                    const svgStr = serializeSvgElement(offscreenSvg);
+                    const baseName = `${String(i + 1).padStart(2, '0')}-${sanitizeFilename(variantSeed)}`;
+
+                    if (format === 'svg') {
+                        zipEntries.push({
+                            name: `${baseName}.svg`,
+                            data: encoder.encode(svgStr)
+                        });
+                    } else {
+                        btnText.textContent = `Rendering ${i + 1}/${count} PNG...`;
+                        const pngBytes = await rasterizeSvgToPngBytes(svgStr, 1024);
+                        zipEntries.push({
+                            name: `${baseName}.png`,
+                            data: pngBytes
+                        });
+                    }
+                }
+
+                const zipBlob = buildZipBlob(zipEntries);
+                const zipUrl = URL.createObjectURL(zipBlob);
+                const link = document.createElement('a');
+                link.href = zipUrl;
+                link.download = `alchemy-grimoire-${count}x-${format}.zip`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(zipUrl);
+
+                showToast(`Downloaded ${count} ${format.toUpperCase()} circles in .ZIP`);
+            } finally {
+                btn.disabled = false;
+                btnText.textContent = 'Generate & Download .ZIP';
+            }
+        }
+
+        /**
+         * ============================================================================
+         * 6. TOAST NOTIFICATIONS & SINGLE-FILE EXPORTS (SVG & HIGH-RES PNG)
          * ============================================================================
          */
         function showToast(message) {
@@ -987,35 +1424,51 @@
         }
 
         function syncUIAndRender() {
+            document.getElementById('seed-input').value = state.seed;
+            document.getElementById('ctrl-complexity').value = state.complexity;
+            document.getElementById('ctrl-symmetry').value = state.symmetry;
+            document.getElementById('ctrl-runes').value = state.runeDensity;
+            document.getElementById('ctrl-nodes').value = state.nodeRings;
+            document.getElementById('ctrl-stroke').value = state.strokeWidth;
+            document.getElementById('ctrl-glow').value = state.glowIntensity;
+
             document.getElementById('val-complexity').textContent = state.complexity;
             document.getElementById('val-symmetry').textContent = `${state.symmetry} (${SYMMETRY_NAMES[state.symmetry] || 'Polygon'})`;
             document.getElementById('val-runes').textContent = `${state.runeDensity}%`;
             document.getElementById('val-nodes').textContent = state.nodeRings === 0 ? 'None' : `${state.nodeRings} Ring${state.nodeRings > 1 ? 's' : ''}`;
             document.getElementById('val-stroke').textContent = `${state.strokeWidth.toFixed(1)} px`;
+            document.getElementById('val-glow').textContent = state.glowIntensity === 0 ? 'Off' : `${state.glowIntensity.toFixed(1)} px`;
             document.getElementById('hex-label').textContent = state.primaryColor.toUpperCase();
             document.getElementById('color-primary').value = state.primaryColor;
             document.getElementById('color-secondary').value = state.secondaryColor;
 
-            // Update glow toggle visual state
-            const glowBtn = document.getElementById('toggle-glow');
-            const glowStatus = document.getElementById('glow-status');
-            const glowIndicator = document.getElementById('glow-indicator');
-            const knob = glowIndicator.querySelector('span');
-            if (state.glow) {
-                glowBtn.classList.add('border-amber-500/40');
-                glowBtn.classList.remove('border-zinc-800');
-                glowStatus.textContent = 'Active';
-                glowStatus.className = 'text-[11px] text-amber-400';
-                glowIndicator.classList.add('bg-amber-500');
-                glowIndicator.classList.remove('bg-zinc-700');
+            // Sync layer visibility checkboxes
+            document.getElementById('layer-containment').checked = state.layers.containment;
+            document.getElementById('layer-runes').checked = state.layers.runes;
+            document.getElementById('layer-polygons').checked = state.layers.polygons;
+            document.getElementById('layer-orbitals').checked = state.layers.orbitals;
+            document.getElementById('layer-core').checked = state.layers.core;
+
+            // Update metallic gradient toggle visual state
+            const gradBtn = document.getElementById('toggle-gradient');
+            const gradStatus = document.getElementById('gradient-status');
+            const gradIndicator = document.getElementById('gradient-indicator');
+            const knob = gradIndicator.querySelector('span');
+            if (state.metallicGradient) {
+                gradBtn.classList.add('border-amber-500/40');
+                gradBtn.classList.remove('border-zinc-800');
+                gradStatus.textContent = 'Active';
+                gradStatus.className = 'text-[11px] text-amber-400';
+                gradIndicator.classList.add('bg-amber-500');
+                gradIndicator.classList.remove('bg-zinc-700');
                 knob.style.transform = 'translateX(0px)';
             } else {
-                glowBtn.classList.remove('border-amber-500/40');
-                glowBtn.classList.add('border-zinc-800');
-                glowStatus.textContent = 'Off';
-                glowStatus.className = 'text-[11px] text-zinc-500';
-                glowIndicator.classList.remove('bg-amber-500');
-                glowIndicator.classList.add('bg-zinc-700');
+                gradBtn.classList.remove('border-amber-500/40');
+                gradBtn.classList.add('border-zinc-800');
+                gradStatus.textContent = 'Flat Ink';
+                gradStatus.className = 'text-[11px] text-zinc-500';
+                gradIndicator.classList.remove('bg-amber-500');
+                gradIndicator.classList.add('bg-zinc-700');
                 knob.style.transform = 'translateX(-16px)';
             }
 
@@ -1023,6 +1476,9 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            // Hydrate state from URL hash if shared link was opened
+            const loadedFromHash = loadStateFromHash();
+
             // Seed Input & Randomize
             const seedInput = document.getElementById('seed-input');
             seedInput.addEventListener('input', (e) => {
@@ -1037,15 +1493,48 @@
                 generateAlchemyCircle();
             });
 
-            // Copy Seed Button
-            document.getElementById('btn-copy-seed').addEventListener('click', () => {
+            // Shareable URL Link Copy Button
+            document.getElementById('btn-share-link').addEventListener('click', () => {
+                encodeStateToHash();
+                const shareUrl = window.location.href;
                 const tempInput = document.createElement('input');
-                tempInput.value = state.seed;
+                tempInput.value = shareUrl;
                 document.body.appendChild(tempInput);
                 tempInput.select();
                 document.execCommand('copy');
                 document.body.removeChild(tempInput);
-                showToast(`Copied seed: ${state.seed}`);
+                showToast('Shareable circle link copied to clipboard');
+            });
+
+            // Archetype Presets
+            document.querySelectorAll('.archetype-btn').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    const key = btn.getAttribute('data-archetype');
+                    const arch = ARCHETYPE_PRESETS[key];
+                    if (arch) {
+                        state.archetype = key;
+                        state.complexity = arch.complexity;
+                        state.symmetry = arch.symmetry;
+                        state.runeDensity = arch.runeDensity;
+                        state.nodeRings = arch.nodeRings;
+                        state.strokeWidth = arch.strokeWidth;
+                        state.glowIntensity = arch.glowIntensity;
+                        state.metallicGradient = arch.metallicGradient;
+                        state.primaryColor = arch.primaryColor;
+                        state.secondaryColor = arch.secondaryColor;
+                        state.layers = { ...arch.layers };
+
+                        document.getElementById('active-archetype-label').textContent = arch.label;
+                        document.querySelectorAll('.archetype-btn').forEach(b => {
+                            b.classList.remove('border-amber-500/50');
+                            b.classList.add('border-zinc-800');
+                        });
+                        btn.classList.remove('border-zinc-800');
+                        btn.classList.add('border-amber-500/50');
+                        syncUIAndRender();
+                        showToast(`Applied ${arch.label} archetype`);
+                    }
+                });
             });
 
             // Rotation Animation Toggle
@@ -1078,10 +1567,29 @@
                 state.strokeWidth = parseFloat(e.target.value);
                 syncUIAndRender();
             });
+            document.getElementById('ctrl-glow').addEventListener('input', (e) => {
+                state.glowIntensity = parseFloat(e.target.value);
+                syncUIAndRender();
+            });
 
-            // Glow Toggle
-            document.getElementById('toggle-glow').addEventListener('click', () => {
-                state.glow = !state.glow;
+            // Layer Visibility Toggle Matrix
+            const layerMap = {
+                'layer-containment': 'containment',
+                'layer-runes': 'runes',
+                'layer-polygons': 'polygons',
+                'layer-orbitals': 'orbitals',
+                'layer-core': 'core'
+            };
+            Object.entries(layerMap).forEach(([elId, layerKey]) => {
+                document.getElementById(elId).addEventListener('change', (e) => {
+                    state.layers[layerKey] = e.target.checked;
+                    generateAlchemyCircle();
+                });
+            });
+
+            // Metallic Shader Toggle
+            document.getElementById('toggle-gradient').addEventListener('click', () => {
+                state.metallicGradient = !state.metallicGradient;
                 syncUIAndRender();
             });
 
@@ -1119,9 +1627,18 @@
             // Export Buttons
             document.getElementById('btn-export-svg').addEventListener('click', exportSVG);
             document.getElementById('btn-export-png').addEventListener('click', exportPNG);
+            document.getElementById('btn-batch-zip').addEventListener('click', exportBatchZip);
+
+            // Listen for external hash edits
+            window.addEventListener('hashchange', () => {
+                if (loadStateFromHash()) syncUIAndRender();
+            });
 
             // Initial Render
             syncUIAndRender();
+            if (loadedFromHash) {
+                showToast('Loaded shared circle configuration');
+            }
         });
     </script>
 </body>
