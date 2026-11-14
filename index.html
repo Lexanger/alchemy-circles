@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#f59e0b">
     <title>Arcane Transmutation & Alchemy Circle Generator</title>
     <link rel="manifest" href="./manifest.json">
@@ -30,19 +30,20 @@
                 linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
             background-size: 100% 100%, 32px 32px, 32px 32px;
         }
-        /* Custom range slider styling */
+        /* Custom range slider styling with generous mobile touch target */
         input[type=range] {
             -webkit-appearance: none;
             background: transparent;
+            height: 24px;
         }
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            height: 16px;
-            width: 16px;
+            height: 18px;
+            width: 18px;
             border-radius: 9999px;
             background: #f59e0b;
             cursor: pointer;
-            margin-top: -6px;
+            margin-top: -7px;
             box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
             transition: transform 0.15s ease;
         }
@@ -65,6 +66,14 @@
             animation: slowSpin 90s linear infinite;
             transform-origin: 500px 500px;
         }
+        /* Hide scrollbars on horizontal tab bars while keeping scrollability */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
         /* Custom sleek scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
@@ -79,70 +88,96 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #3f3f46;
         }
+        /* Mobile tabbed drawer visibility rules (< 1024px) */
+        @media (max-width: 1023px) {
+            .mobile-tab-panel {
+                display: none;
+            }
+            .mobile-tab-panel.active-panel {
+                display: block;
+            }
+            .mobile-divider {
+                display: none;
+            }
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col lg:flex-row overflow-x-hidden selection:bg-amber-500/30 selection:text-amber-200">
+<body class="h-[100dvh] lg:min-h-screen flex flex-col lg:flex-row overflow-hidden lg:overflow-x-hidden selection:bg-amber-500/30 selection:text-amber-200">
 
     <!-- Toast Notification Banner (Replaces native alerts) -->
-    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+    <div id="toast-container" class="fixed top-16 lg:top-auto lg:bottom-5 right-4 lg:right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- Left / Main Interactive SVG Viewport -->
-    <main class="flex-1 flex flex-col relative canvas-stage min-h-[55vh] lg:min-h-screen border-b lg:border-b-0 lg:border-r border-zinc-800/80">
+    <!-- Left / Top Pinned Interactive SVG Viewport -->
+    <main class="h-[44dvh] sm:h-[48dvh] lg:h-auto lg:flex-1 shrink-0 flex flex-col relative canvas-stage border-b lg:border-b-0 lg:border-r border-zinc-800/80 transition-all duration-300" id="viewport-stage">
         
         <!-- Top Header Overlay -->
-        <header class="w-full px-6 py-4 flex flex-wrap items-center justify-between gap-4 z-10 bg-zinc-950/60 backdrop-blur-md border-b border-zinc-800/60">
-            <div class="flex items-center gap-3">
+        <header class="w-full px-3.5 sm:px-6 py-2.5 sm:py-4 flex items-center justify-between gap-2 z-10 bg-zinc-950/75 backdrop-blur-md border-b border-zinc-800/60">
+            <div class="flex items-center gap-2.5 min-w-0">
                 <!-- Inline SVG Alchemical Emblem -->
-                <div class="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-inner">
-                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-inner shrink-0">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
                         <circle cx="12" cy="12" r="9"/>
                         <polygon points="12,3 20,17 4,17"/>
                         <circle cx="12" cy="13" r="3.5"/>
                     </svg>
                 </div>
-                <div>
-                    <h1 class="font-arcane text-lg sm:text-xl font-bold tracking-wider text-zinc-100">ARS ALCHEMIA</h1>
-                    <p class="text-xs text-zinc-400 tracking-wide">Procedural Transmutation Matrix</p>
+                <div class="truncate">
+                    <h1 class="font-arcane text-sm sm:text-xl font-bold tracking-wider text-zinc-100 truncate">ARS ALCHEMIA</h1>
+                    <p class="hidden sm:block text-xs text-zinc-400 tracking-wide">Procedural Transmutation Matrix</p>
                 </div>
             </div>
 
-            <!-- Quick Viewport Action Toggles -->
-            <div class="flex items-center gap-2">
-                <button id="btn-install-pwa" class="hidden px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 transition flex items-center gap-1.5 cursor-pointer" title="Install as Offline App">
+            <!-- Quick Viewport Action Toggles (Includes Quick Randomize on Mobile) -->
+            <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                <button id="btn-install-pwa" class="hidden px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 transition flex items-center gap-1 cursor-pointer" title="Install as Offline App">
                     <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                         <polyline points="7 10 12 15 17 10"/>
                         <line x1="12" y1="15" x2="12" y2="3"/>
                     </svg>
-                    <span>Install App</span>
+                    <span class="hidden sm:inline">Install</span>
                 </button>
-                <button id="btn-animate" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700/70 transition flex items-center gap-1.5 cursor-pointer" title="Toggle subtle rotation">
+                <button id="btn-quick-random-top" class="lg:hidden px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-600 hover:bg-amber-500 active:scale-95 text-zinc-950 transition flex items-center gap-1 cursor-pointer" title="New Random Seed">
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    </svg>
+                    <span>New</span>
+                </button>
+                <button id="btn-animate" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700/70 transition flex items-center gap-1.5 cursor-pointer" title="Toggle subtle rotation">
                     <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/>
                         <path d="M21 3v5h-5"/>
                     </svg>
-                    <span>Rotate</span>
+                    <span class="hidden sm:inline">Rotate</span>
                 </button>
-                <button id="btn-share-link" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700/70 transition flex items-center gap-1.5 cursor-pointer" title="Copy shareable URL with full circle settings">
+                <button id="btn-share-link" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700/70 transition flex items-center gap-1.5 cursor-pointer" title="Copy shareable URL with full circle settings">
                     <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
                         <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
                     </svg>
-                    <span>Share Link</span>
+                    <span class="hidden sm:inline">Share Link</span>
+                </button>
+                <button id="btn-expand-preview" class="lg:hidden px-2.5 py-1.5 rounded-lg text-xs font-medium bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700/70 transition flex items-center cursor-pointer" title="Toggle Large Preview">
+                    <svg id="icon-expand" class="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 3 21 3 21 9"/>
+                        <polyline points="9 21 3 21 3 15"/>
+                        <line x1="21" y1="3" x2="14" y2="10"/>
+                        <line x1="3" y1="21" x2="10" y2="14"/>
+                    </svg>
                 </button>
             </div>
         </header>
 
         <!-- Center SVG Stage -->
-        <div class="flex-1 flex items-center justify-center p-4 sm:p-8 overflow-hidden relative">
-            <div id="svg-wrapper" class="w-full max-w-[680px] aspect-square flex items-center justify-center transition-transform duration-300">
+        <div class="flex-1 flex items-center justify-center p-2 sm:p-6 lg:p-8 overflow-hidden relative min-h-0">
+            <div id="svg-wrapper" class="h-full max-h-full aspect-square max-w-[680px] flex items-center justify-center transition-transform duration-300">
                 <!-- Procedural Vector Alchemy Circle Rendered Here -->
                 <svg id="alchemy-svg" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-2xl select-none"></svg>
             </div>
         </div>
 
-        <!-- Bottom Status Metadata Bar -->
-        <footer class="px-6 py-2.5 bg-zinc-950/70 border-t border-zinc-800/60 flex flex-wrap items-center justify-between text-[11px] text-zinc-500 gap-2">
+        <!-- Bottom Status Metadata Bar (Desktop Only to save mobile vertical room) -->
+        <footer class="hidden lg:flex px-6 py-2.5 bg-zinc-950/70 border-t border-zinc-800/60 items-center justify-between text-[11px] text-zinc-500 gap-2">
             <div class="flex items-center gap-4">
                 <span>VIEWBOX: <strong class="text-zinc-300 font-mono">1000×1000 SVG</strong></span>
                 <span id="stat-elements">NODES: <strong class="text-zinc-300 font-mono">0</strong></span>
@@ -153,33 +188,127 @@
         </footer>
     </main>
 
-    <!-- Right Control Sidebar -->
-    <aside class="w-full lg:w-[400px] xl:w-[430px] bg-zinc-950 flex flex-col justify-between lg:h-screen lg:overflow-y-auto z-20">
-        <div class="p-5 sm:p-6 space-y-6">
-            
-            <!-- Section 1: Seed Control -->
-            <section class="space-y-2.5">
-                <div class="flex items-center justify-between">
-                    <label for="seed-input" class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Transmutation Seed</label>
-                    <span class="text-[11px] text-zinc-500">Reproducible Matrix</span>
-                </div>
-                <div class="flex gap-2">
-                    <input type="text" id="seed-input" value="PHILOSOPHER-STONE-01" spellcheck="false"
-                        class="flex-1 bg-zinc-900/90 border border-zinc-700/80 rounded-xl px-3.5 py-2.5 text-sm font-mono text-amber-300 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/40 transition"
-                        placeholder="Enter seed phrase...">
-                    <button id="btn-randomize" 
-                        class="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 active:scale-95 text-zinc-950 font-semibold text-sm transition flex items-center gap-1.5 shadow-lg shadow-amber-900/20 cursor-pointer">
-                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                            <line x1="12" y1="22.08" x2="12" y2="12"/>
-                        </svg>
-                        <span>Randomize</span>
-                    </button>
-                </div>
-            </section>
+    <!-- Right / Bottom Tabbed Control Drawer -->
+    <aside class="flex-1 lg:flex-none w-full lg:w-[400px] xl:w-[430px] bg-zinc-950 flex flex-col min-h-0 lg:h-screen z-20">
+        
+        <!-- Mobile Category Navigation Tabs (< 1024px) -->
+        <nav aria-label="Control Categories" class="lg:hidden grid grid-cols-5 bg-zinc-900/95 border-b border-zinc-800 shrink-0">
+            <button type="button" data-tab="tab-seed" class="mobile-tab-btn py-2.5 px-1 flex flex-col items-center justify-center gap-1 text-[11px] font-semibold text-amber-400 border-b-2 border-amber-500 bg-zinc-950/50 transition cursor-pointer">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                </svg>
+                <span>Seed</span>
+            </button>
+            <button type="button" data-tab="tab-shape" class="mobile-tab-btn py-2.5 px-1 flex flex-col items-center justify-center gap-1 text-[11px] font-medium text-zinc-400 border-b-2 border-transparent hover:text-zinc-200 transition cursor-pointer">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="9"/>
+                    <polygon points="12,3 20,17 4,17"/>
+                </svg>
+                <span>Shape</span>
+            </button>
+            <button type="button" data-tab="tab-layers" class="mobile-tab-btn py-2.5 px-1 flex flex-col items-center justify-center gap-1 text-[11px] font-medium text-zinc-400 border-b-2 border-transparent hover:text-zinc-200 transition cursor-pointer">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7" rx="1"/>
+                    <rect x="14" y="3" width="7" height="7" rx="1"/>
+                    <rect x="14" y="14" width="7" height="7" rx="1"/>
+                    <rect x="3" y="14" width="7" height="7" rx="1"/>
+                </svg>
+                <span>Layers</span>
+            </button>
+            <button type="button" data-tab="tab-style" class="mobile-tab-btn py-2.5 px-1 flex flex-col items-center justify-center gap-1 text-[11px] font-medium text-zinc-400 border-b-2 border-transparent hover:text-zinc-200 transition cursor-pointer">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                </svg>
+                <span>Style</span>
+            </button>
+            <button type="button" data-tab="tab-export" class="mobile-tab-btn py-2.5 px-1 flex flex-col items-center justify-center gap-1 text-[11px] font-medium text-zinc-400 border-b-2 border-transparent hover:text-zinc-200 transition cursor-pointer">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <span>Export</span>
+            </button>
+        </nav>
 
-            <!-- Section 1B: Archetype Presets -->
+        <!-- Scrollable Tab Content Area -->
+        <div class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 lg:space-y-6">
+            
+            <!-- TAB 1: SEED & ARCHETYPE PRESETS -->
+            <div id="tab-seed" class="mobile-tab-panel active-panel space-y-4">
+                <!-- Section 1: Seed Control -->
+                <section class="space-y-2">
+                    <div class="flex items-center justify-between">
+                        <label for="seed-input" class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Transmutation Seed</label>
+                        <span class="text-[11px] text-zinc-500">Reproducible Matrix</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <input type="text" id="seed-input" value="PHILOSOPHER-STONE-01" spellcheck="false"
+                            class="flex-1 min-w-0 bg-zinc-900/90 border border-zinc-700/80 rounded-xl px-3 py-2 text-sm font-mono text-amber-300 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/40 transition"
+                            placeholder="Enter seed phrase...">
+                        <button id="btn-randomize" 
+                            class="px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 active:scale-95 text-zinc-950 font-semibold text-xs sm:text-sm transition flex items-center gap-1.5 shadow-lg shadow-amber-900/20 cursor-pointer shrink-0">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                                <line x1="12" y1="22.08" x2="12" y2="12"/>
+                            </svg>
+                            <span>Random</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Section 1B: Archetype Presets -->
+                <section class="space-y-2">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Arcane Archetypes</h2>
+                        <span id="active-archetype-label" class="text-[11px] font-mono text-amber-400/90">Hermetic Seal</span>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="archetype-grid">
+                        <button type="button" data-archetype="hermetic" class="archetype-btn p-2.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-amber-500/50 text-left transition cursor-pointer">
+                            <div class="text-xs font-semibold text-zinc-100">Hermetic Seal</div>
+                            <div class="text-[10px] text-zinc-400">6-fold Gold &amp; Crimson</div>
+                        </button>
+                        <button type="button" data-archetype="astrolabe" class="archetype-btn p-2.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 text-left transition cursor-pointer">
+                            <div class="text-xs font-semibold text-zinc-100">Astrolabe</div>
+                            <div class="text-[10px] text-zinc-400">12-fold Celestial Orbit</div>
+                        </button>
+                        <button type="button" data-archetype="binding" class="archetype-btn p-2.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 text-left transition cursor-pointer">
+                            <div class="text-xs font-semibold text-zinc-100">Demonic Rite</div>
+                            <div class="text-[10px] text-zinc-400">5-fold Sharp Pentagram</div>
+                        </button>
+                        <button type="button" data-archetype="chronometer" class="archetype-btn p-2.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 text-left transition cursor-pointer">
+                            <div class="text-xs font-semibold text-zinc-100">Chronometer</div>
+                            <div class="text-[10px] text-zinc-400">8-fold Precision Ticks</div>
+                        </button>
+                        <button type="button" data-archetype="aether" class="archetype-btn p-2.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 text-left transition cursor-pointer">
+                            <div class="text-xs font-semibold text-zinc-100">Aether Core</div>
+                            <div class="text-[10px] text-zinc-400">9-fold Astral Conduit</div>
+                        </button>
+                        <button type="button" data-archetype="tablet" class="archetype-btn p-2.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 text-left transition cursor-pointer">
+                            <div class="text-xs font-semibold text-zinc-100">Emerald Tablet</div>
+                            <div class="text-[10px] text-zinc-400">4-fold Elemental Matrix</div>
+                        </button>
+                    </div>
+                </section>
+            </div>
+
+            <hr class="border-zinc-800/80 mobile-divider">
+
+            <!-- TAB 2: LAYER VISIBILITY MATRIX -->
+            <div id="tab-layers" class="mobile-tab-panel space-y-3">
+                <section class="space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Layer Visibility Matrix</h2>
+                        <span class="text-[11px] text-zinc-500">Isolate Structure</span>
+                    </div>
+                    <drchetype Presets -->
             <section class="space-y-2.5">
                 <div class="flex items-center justify-between">
                     <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Arcane Archetypes</h2>
